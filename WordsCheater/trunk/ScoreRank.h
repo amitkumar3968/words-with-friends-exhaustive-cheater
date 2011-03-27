@@ -7,19 +7,20 @@ namespace
     const int MAX_TILES_TO_PLACE = 7;
 }
 
-#include"BoardPosInfo.h"
+#include"PlacedTileInfo.h"
 #include <vector>
 #include <string>
 
 class ScoreRank
 {
-private:
+public:
     struct RankEntity
     {
-        int           m_score;
-        int           m_numPlacedTiles;
-        BoardPosInfo* m_placedTiles;
+        int              m_score;
+        int              m_numPlacedTiles;
+        PlacedTileInfo*  m_placedTiles;
     };
+private:
     struct GreaterRank
     {
         bool operator() ( const RankEntity& lhs, const RankEntity& rhs )
@@ -32,15 +33,20 @@ public:
 
     void Submit( int score,
                  int stateSize,
-                 BoardPosInfo* boardState );
+                 PlacedTileInfo* placedTiles );
 
-    const std::vector<RankEntity> ScoreRank::GetResults();
+    void GetResults( std::vector<RankEntity>::const_iterator& begin,
+                     std::vector<RankEntity>::const_iterator& end );
+
+    void Reset();
 
 private:
-    BoardPosInfo        m_placedTilesBuffer[MAX_RESULTS][MAX_TILES_TO_PLACE];
-    RankEntity          m_entitesHeap[MAX_RESULTS+1];
-    RankEntity* const   m_heapFisrt;
-    RankEntity* const   m_heapEnd;
+    PlacedTileInfo           m_placedTilesBuffer[MAX_RESULTS][MAX_TILES_TO_PLACE];
+    RankEntity               m_entitesHeap[MAX_RESULTS];
+    std::vector<RankEntity>  m_results;
+    RankEntity* const        m_heapFisrt;
+    RankEntity* const        m_heapLast;
+    RankEntity* const        m_heapEnd;
 };
 
 

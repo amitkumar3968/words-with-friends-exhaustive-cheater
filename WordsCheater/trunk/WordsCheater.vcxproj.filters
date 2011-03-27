@@ -24,12 +24,18 @@
     <ClCompile Include="ScoreRank.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PlacedTileInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoardPosInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ScoreRank.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlacedTileInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
