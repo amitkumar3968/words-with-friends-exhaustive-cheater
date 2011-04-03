@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="TestData">
+      <UniqueIdentifier>{61cbe339-8bb9-44ee-a3df-2cffe98dda8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TestData\DictionaryTest">
+      <UniqueIdentifier>{fd044f5b-e350-495f-ba2b-ae5f8c9f81aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UTMain.cpp">
@@ -21,5 +27,13 @@
     <ClCompile Include="ScoreRankTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DictionaryTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestData\DictionaryTest\dict.txt">
+      <Filter>TestData\DictionaryTest</Filter>
+    </None>
   </ItemGroup>
 </Project>
