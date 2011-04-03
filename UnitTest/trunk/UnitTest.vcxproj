@@ -80,8 +80,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DictionaryTest.cpp" />
     <ClCompile Include="ScoreRankTest.cpp" />
     <ClCompile Include="UTMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestData\DictionaryTest\dict.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
