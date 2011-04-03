@@ -73,11 +73,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoardPosInfo.cpp" />
+    <ClCompile Include="Dictionary.cpp" />
     <ClCompile Include="PlacedTileInfo.cpp" />
     <ClCompile Include="ScoreRank.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoardPosInfo.h" />
+    <ClInclude Include="Dictionary.h" />
     <ClInclude Include="PlacedTileInfo.h" />
     <ClInclude Include="ScoreRank.h" />
   </ItemGroup>
