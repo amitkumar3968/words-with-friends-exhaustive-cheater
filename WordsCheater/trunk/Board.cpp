@@ -27,7 +27,7 @@ namespace
     }
 }
 
-Board::Iterator::Iterator( ) 
+Board::Iterator::Iterator( )
 : m_board       ( 0 ),
   m_row         ( -1 ),
   m_col         ( -1 ),
