@@ -80,11 +80,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BoardTest.cpp" />
     <ClCompile Include="DictionaryTest.cpp" />
     <ClCompile Include="ScoreRankTest.cpp" />
     <ClCompile Include="UTMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="TestData\BoardTest\boardForIterator.txt" />
+    <None Include="TestData\BoardTest\normalBoard.txt" />
+    <None Include="TestData\BoardTest\emptyBoard.txt" />
     <None Include="TestData\DictionaryTest\dict.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

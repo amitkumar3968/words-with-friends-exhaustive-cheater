@@ -19,6 +19,9 @@
     <Filter Include="TestData\DictionaryTest">
       <UniqueIdentifier>{fd044f5b-e350-495f-ba2b-ae5f8c9f81aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TestData\BoardTest">
+      <UniqueIdentifier>{76282ba1-e2d7-4bca-8fc3-3ef5ed2647d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UTMain.cpp">
@@ -30,10 +33,22 @@
     <ClCompile Include="DictionaryTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BoardTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="TestData\DictionaryTest\dict.txt">
       <Filter>TestData\DictionaryTest</Filter>
+    </None>
+    <None Include="TestData\BoardTest\emptyBoard.txt">
+      <Filter>TestData\BoardTest</Filter>
+    </None>
+    <None Include="TestData\BoardTest\boardForIterator.txt">
+      <Filter>TestData\BoardTest</Filter>
+    </None>
+    <None Include="TestData\BoardTest\normalBoard.txt">
+      <Filter>TestData\BoardTest</Filter>
     </None>
   </ItemGroup>
 </Project>

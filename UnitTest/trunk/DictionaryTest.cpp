@@ -3,14 +3,14 @@
 
 namespace
 {
-    const std::string dictPath = "../TestData/DictionaryTest/dict.txt";
+    const std::string DICT_FILE = "../TestData/DictionaryTest/dict.txt";
 }
 
 TEST( Dictionay, Constructor )
 {
     try
     {
-        Dictionary dict( "asdsf" );
+        Dictionary subject( "asdsf" );
         CHECK( false );
     }
     catch( std::invalid_argument e )
@@ -20,7 +20,7 @@ TEST( Dictionay, Constructor )
 
     try
     {
-        Dictionary dict( dictPath );
+        Dictionary subject( DICT_FILE );
     }
     catch( std::invalid_argument e )
     {
@@ -31,71 +31,71 @@ TEST( Dictionay, Constructor )
 TEST( Dictionay, IsStringValid )
 {
     //valid string
-    Dictionary dict( dictPath );
-    CHECK( dict.IsStringValid( "abc" ) );
-    CHECK( dict.IsStringValid( "edd" ) );
-    CHECK( dict.IsStringValid( "irfwoi" ) );
-    CHECK( dict.IsStringValid( "sekr" ) );
-    CHECK( dict.IsStringValid( "xzeei" ) );
+    Dictionary subject( DICT_FILE );
+    CHECK( subject.IsStringValid( "abc" ) );
+    CHECK( subject.IsStringValid( "edd" ) );
+    CHECK( subject.IsStringValid( "irfwoi" ) );
+    CHECK( subject.IsStringValid( "sekr" ) );
+    CHECK( subject.IsStringValid( "xzeei" ) );
 
     //Invalid string
-    CHECK( !dict.IsStringValid( "ab" ) );
-    CHECK( !dict.IsStringValid( "fwoi" ) );
-    CHECK( !dict.IsStringValid( "abcc" ) );
-    CHECK( !dict.IsStringValid( "edds" ) );
-    CHECK( !dict.IsStringValid( "ierfwoi" ) );
-    CHECK( !dict.IsStringValid( "serkr" ) );
-    CHECK( !dict.IsStringValid( "xzefei" ) );
-    CHECK( !dict.IsStringValid( "wwed" ) );
-    CHECK( !dict.IsStringValid( "s" ) );
-    CHECK( !dict.IsStringValid( "" ) );
+    CHECK( !subject.IsStringValid( "ab" ) );
+    CHECK( !subject.IsStringValid( "fwoi" ) );
+    CHECK( !subject.IsStringValid( "abcc" ) );
+    CHECK( !subject.IsStringValid( "edds" ) );
+    CHECK( !subject.IsStringValid( "ierfwoi" ) );
+    CHECK( !subject.IsStringValid( "serkr" ) );
+    CHECK( !subject.IsStringValid( "xzefei" ) );
+    CHECK( !subject.IsStringValid( "wwed" ) );
+    CHECK( !subject.IsStringValid( "s" ) );
+    CHECK( !subject.IsStringValid( "" ) );
 }
 
 TEST( Dictionay, IsSubStringValid )
 {
     //valid string
-    Dictionary dict( dictPath );
-    CHECK( dict.IsSubStringValid( "ab" ) );
-    CHECK( dict.IsSubStringValid( "abc" ) );
-    CHECK( dict.IsSubStringValid( "edd" ) );
-    CHECK( dict.IsSubStringValid( "fwoi" ) );
-    CHECK( dict.IsSubStringValid( "sek" ) );
-    CHECK( dict.IsSubStringValid( "zeei" ) );
+    Dictionary subject( DICT_FILE );
+    CHECK( subject.IsSubStringValid( "ab" ) );
+    CHECK( subject.IsSubStringValid( "abc" ) );
+    CHECK( subject.IsSubStringValid( "edd" ) );
+    CHECK( subject.IsSubStringValid( "fwoi" ) );
+    CHECK( subject.IsSubStringValid( "sek" ) );
+    CHECK( subject.IsSubStringValid( "zeei" ) );
 
     //Invalid string
-    CHECK( !dict.IsSubStringValid( "adb" ) );
-    CHECK( !dict.IsSubStringValid( "eddd" ) );
-    CHECK( !dict.IsSubStringValid( "fwosi" ) );
-    CHECK( !dict.IsSubStringValid( "xzefei" ) );
-    CHECK( !dict.IsSubStringValid( "wwed" ) );
-    CHECK( !dict.IsSubStringValid( "s" ) );
-    CHECK( !dict.IsSubStringValid( "" ) );
+    CHECK( !subject.IsSubStringValid( "adb" ) );
+    CHECK( !subject.IsSubStringValid( "eddd" ) );
+    CHECK( !subject.IsSubStringValid( "fwosi" ) );
+    CHECK( !subject.IsSubStringValid( "xzefei" ) );
+    CHECK( !subject.IsSubStringValid( "wwed" ) );
+    CHECK( !subject.IsSubStringValid( "s" ) );
+    CHECK( !subject.IsSubStringValid( "" ) );
 }
 
 TEST( Dictionary, WildChar )
 {
     //valid string for IsStringValid
-    Dictionary dict( dictPath );
-    CHECK( dict.IsStringValid( "a.c" ) );
-    CHECK( dict.IsStringValid( ".dd" ) );
-    CHECK( dict.IsStringValid( "irfwo." ) );
-    CHECK( dict.IsStringValid( "s..r" ) );
-    CHECK( dict.IsStringValid( "x.e.i" ) );
-    CHECK( dict.IsStringValid( "..." ) );
+    Dictionary subject( DICT_FILE );
+    CHECK( subject.IsStringValid( "a.c" ) );
+    CHECK( subject.IsStringValid( ".dd" ) );
+    CHECK( subject.IsStringValid( "irfwo." ) );
+    CHECK( subject.IsStringValid( "s..r" ) );
+    CHECK( subject.IsStringValid( "x.e.i" ) );
+    CHECK( subject.IsStringValid( "..." ) );
    
     //valid string for IsSubStringValid
-    CHECK( dict.IsSubStringValid( "a." ) );
-    CHECK( dict.IsSubStringValid( "e.d" ) );
-    CHECK( dict.IsSubStringValid( "f..i" ) );
-    CHECK( dict.IsSubStringValid( ".ek" ) );
-    CHECK( dict.IsSubStringValid( "z.e." ) );
-    CHECK( dict.IsSubStringValid( "..." ) );
+    CHECK( subject.IsSubStringValid( "a." ) );
+    CHECK( subject.IsSubStringValid( "e.d" ) );
+    CHECK( subject.IsSubStringValid( "f..i" ) );
+    CHECK( subject.IsSubStringValid( ".ek" ) );
+    CHECK( subject.IsSubStringValid( "z.e." ) );
+    CHECK( subject.IsSubStringValid( "..." ) );
 
     //Invalid string for IsSubStringValid
-    CHECK( !dict.IsStringValid( "ass." ) );
-    CHECK( !dict.IsStringValid( "." ) );
+    CHECK( !subject.IsStringValid( "ass." ) );
+    CHECK( !subject.IsStringValid( "." ) );
 
     //Invalid string for IsSubStringValid
-    CHECK( !dict.IsSubStringValid( "ad." ) );
-    CHECK( !dict.IsSubStringValid( "." ) );
+    CHECK( !subject.IsSubStringValid( "ad." ) );
+    CHECK( !subject.IsSubStringValid( "." ) );
 }
