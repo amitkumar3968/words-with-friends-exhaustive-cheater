@@ -72,15 +72,19 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Board.cpp" />
     <ClCompile Include="BoardPosInfo.cpp" />
     <ClCompile Include="Dictionary.cpp" />
     <ClCompile Include="PlacedTileInfo.cpp" />
+    <ClCompile Include="Position.cpp" />
     <ClCompile Include="ScoreRank.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Board.h" />
     <ClInclude Include="BoardPosInfo.h" />
     <ClInclude Include="Dictionary.h" />
     <ClInclude Include="PlacedTileInfo.h" />
+    <ClInclude Include="Position.h" />
     <ClInclude Include="ScoreRank.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
