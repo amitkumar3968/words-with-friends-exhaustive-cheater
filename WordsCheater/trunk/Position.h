@@ -5,6 +5,7 @@ struct Position
 {
     explicit Position( );
     explicit Position( int row, int col );
+    
 
     bool operator==( const Position& rhs ) const;
     bool operator!=( const Position& rhs ) const;
