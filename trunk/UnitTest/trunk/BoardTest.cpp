@@ -2,7 +2,7 @@
 #include "Board.h"
 
 #include <vector>
-
+#include <iostream>
 namespace
 {
     const std::string TEST_DATA = "../TestData/BoardTest/";
@@ -23,8 +23,8 @@ namespace
         return rtn;
     }
 
-    bool CheckPlacedTiles( const PlacedTileInfo* actual, int actualSize,
-                           const PlacedTileInfo* expect, int expectSize )
+    bool CheckPlacedPositions( const Position* actual, int actualSize,
+                               const Position* expect, int expectSize )
     {
         if( expectSize == 0 ||
             actualSize != expectSize )
@@ -45,8 +45,8 @@ TEST( Board, Iterator_vertical )
     Board subject;
     subject.ResetFromFile( TEST_DATA + "boardForIterator.txt" );
 
-    Board::Iterator end1;
-    Board::Iterator end2;
+    Board::Iterator end1( &subject );
+    Board::Iterator end2( &subject );
 
     CHECK( subject.GetEnds( 6, 7, true, end1, end2 ) );
 
@@ -70,7 +70,7 @@ TEST( Board, Iterator_vertical )
 
     // operator --
     CHECK( (--end2)->type == Board::ORIGINAL );
-    CHECK( end1->ch == 'o' );
+    CHECK( end2->ch == 'o' );
 
     // operator ==
     for(int i=0; i<8; ++i)
@@ -94,14 +94,9 @@ TEST( Board, Iterator_vertical )
     for(int i=0; i<9; ++i)
         ++end1;
 
-    CHECK( end1->type == Board::ORIGINAL );
-    CHECK( end1->ch == 'p' );
-
+    CHECK( end1->type == Board::INVALID );
     ++end1;
-    CHECK( end1 == subject.BOUNDARY );
-    ++end1;
-    CHECK( end1 == subject.BOUNDARY );
-    
+    CHECK( end1->type == Board::INVALID );
 }
 
 
@@ -110,10 +105,10 @@ TEST( Board, Iterator_horizontal )
     Board subject;
     subject.ResetFromFile( TEST_DATA + "boardForIterator.txt" );
 
-    Board::Iterator end1;
-    Board::Iterator end2;
+    Board::Iterator end1( &subject );
+    Board::Iterator end2( &subject );
 
-    CHECK( subject.GetEnds( 6, 7, false, end1, end2 ) );
+    CHECK( subject.GetEnds( 7, 6, false, end1, end2 ) );
 
     // operator *
     CHECK( (*end1).type == Board::ORIGINAL );
@@ -135,7 +130,7 @@ TEST( Board, Iterator_horizontal )
 
     // operator --
     CHECK( (--end2)->type == Board::ORIGINAL );
-    CHECK( end1->ch == 'a' );
+    CHECK( end2->ch == 'a' );
 
     // operator ==
     for(int i=0; i<8; ++i)
@@ -159,14 +154,9 @@ TEST( Board, Iterator_horizontal )
     for(int i=0; i<9; ++i)
         ++end1;
 
-    CHECK( end1->type == Board::ORIGINAL );
-    CHECK( end1->ch == 'p' );
-
+    CHECK( end1->type == Board::INVALID );
     ++end1;
-    CHECK( end1 == subject.BOUNDARY );
-    ++end1;
-    CHECK( end1 == subject.BOUNDARY );
-    
+    CHECK( end1->type == Board::INVALID );
 }
 
 
@@ -175,8 +165,8 @@ TEST( Board, GetLine )
     Board subject;
     subject.ResetFromFile( TEST_DATA + "normalBoard.txt" );
 
-    Board::Iterator itr;
-    Board::Iterator end;
+    Board::Iterator itr( &subject );
+    Board::Iterator end( &subject );
 
     CHECK( subject.GetLine( 6, 7, true, itr, end ) );
     CHECK( CheckGetLine( itr, end, "abcdeflmnop" ) );
@@ -207,8 +197,8 @@ TEST( Board, GetEnds )
     Board subject;
     subject.ResetFromFile( TEST_DATA + "normalBoard.txt" );
 
-    Board::Iterator front;
-    Board::Iterator back;
+    Board::Iterator front( &subject );
+    Board::Iterator back( &subject );
 
     CHECK( subject.GetEnds( 6, 7, true, front, back ) );
 
@@ -268,17 +258,17 @@ TEST( Board, Place_vertical )
     Board subject;
     subject.ResetFromFile( TEST_DATA + "normalBoard.txt" );
 
-    CHECK( subject.Place( 4, 10, 'n' ) );
-    CHECK( subject.Place( 5, 10, 'o' ) );
-    CHECK( subject.Place( 6, 10, 't' ) );
+    CHECK( subject.Place( 3, 10, 'n' ) );
+    CHECK( subject.Place( 4, 10, 'o' ) );
+    CHECK( subject.Place( 5, 10, 't' ) );
 
-    CHECK( subject.Place( 8, 10, 'i' ) );
+    CHECK( subject.Place( 7, 10, 'i' ) );
 
-    CHECK( subject.Place( 10, 10, 't' ) );
-    CHECK( subject.Place( 11, 10, 'y' ) );
+    CHECK( subject.Place( 9, 10, 't' ) );
+    CHECK( subject.Place( 10, 10, 'y' ) );
 
-    Board::Iterator itr;
-    Board::Iterator end;
+    Board::Iterator itr( &subject );
+    Board::Iterator end( &subject );
 
     CHECK( subject.GetLine( 4, 10, true, itr, end ) );
     CHECK( itr->type == Board::PLACED );
@@ -326,37 +316,37 @@ TEST( Board, Place_horizontal )
     CHECK( !subject.Place( 15, 15, 'f' ) );
 
     //place to ORIGINAL position
-    CHECK( !subject.Place( 5, 12, 'x' ) );
+    CHECK( !subject.Place( 12, 5, 'x' ) );
 
-    CHECK( subject.Place( 0, 12, 'f' ) );
-    CHECK( subject.Place( 1, 12, 'e' ) );
-    CHECK( subject.Place( 2, 12, 'l' ) );
-    CHECK( subject.Place( 3, 12, 'i' ) );
-    CHECK( subject.Place( 4, 12, 'x' ) );
-    CHECK( subject.Place( 6, 12, 'i' ) );
-    CHECK( subject.Place( 8, 12, 'g' ) );
+    CHECK( subject.Place( 12, 0, 'f' ) );
+    CHECK( subject.Place( 12, 1, 'e' ) );
+    CHECK( subject.Place( 12, 2, 'l' ) );
+    CHECK( subject.Place( 12, 3, 'i' ) );
+    CHECK( subject.Place( 12, 4, 'x' ) );
+    CHECK( subject.Place( 12, 6, 'i' ) );
+    CHECK( subject.Place( 12, 8, 'g' ) );
 
     //place to placed position
-    CHECK( !subject.Place(  8, 12, 'x' ) );
+    CHECK( !subject.Place( 12, 8, 'x' ) );
 
     CHECK( subject.GetPlacedNum() == 7 );
 
-    std::vector<PlacedTileInfo> expectPlaceTiles;
-    expectPlaceTiles.push_back( PlacedTileInfo( 0, 12, 'f' ) );
-    expectPlaceTiles.push_back( PlacedTileInfo( 1, 12, 'e' ) );
-    expectPlaceTiles.push_back( PlacedTileInfo( 2, 12, 'l' ) );
-    expectPlaceTiles.push_back( PlacedTileInfo( 3, 12, 'i' ) );
-    expectPlaceTiles.push_back( PlacedTileInfo( 4, 12, 'x' ) );
-    expectPlaceTiles.push_back( PlacedTileInfo( 6, 12, 'i' ) );
-    expectPlaceTiles.push_back( PlacedTileInfo( 8, 12, 'g' ) );
+    std::vector<Position> expectPlacePositions;
+    expectPlacePositions.push_back( Position( 12 ,0 ) );
+    expectPlacePositions.push_back( Position( 12 ,1 ) );
+    expectPlacePositions.push_back( Position( 12 ,2 ) );
+    expectPlacePositions.push_back( Position( 12 ,3 ) );
+    expectPlacePositions.push_back( Position( 12 ,4 ) );
+    expectPlacePositions.push_back( Position( 12 ,6 ) );
+    expectPlacePositions.push_back( Position( 12 ,8 ) );
     
-    CHECK( CheckPlacedTiles( subject.GetPlacedTiles(), subject.GetPlacedNum(),
-                             &expectPlaceTiles[0], expectPlaceTiles.size() ) );
+    CHECK( CheckPlacedPositions( subject.GetPlacedTiles(), subject.GetPlacedNum(),
+                             &expectPlacePositions[0], expectPlacePositions.size() ) );
 
-    Board::Iterator itr;
-    Board::Iterator end;
+    Board::Iterator itr( &subject );
+    Board::Iterator end( &subject );
 
-    CHECK( subject.GetLine( 8, 12, false, itr, end ) );
+    CHECK( subject.GetLine( 12, 8, false, itr, end ) );
     CHECK( itr->type == Board::PLACED );
     CHECK( itr->ch == 'f' );
 
@@ -396,7 +386,7 @@ TEST( Board, Place_horizontal )
     CHECK( itr == end );
 
     //placed too many
-    CHECK( !subject.Place( 0, 12, 'f' ) );
+    CHECK( !subject.Place( 12, 0, 'f' ) );
 }
 
 
@@ -407,41 +397,43 @@ TEST( Board, Undo )
 
     CHECK( !subject.Undo() );
 
-    CHECK( subject.Place( 0, 12, 'f' ) );
-    CHECK( subject.Place( 1, 12, 'e' ) );
-    CHECK( subject.Place( 2, 12, 'l' ) );
-    CHECK( subject.Place( 3, 12, 'i' ) );
+    subject.printToStream( std::cout, 0, 0 );
 
-    std::vector<PlacedTileInfo> expectPlaceTiles;
-    expectPlaceTiles.push_back( PlacedTileInfo( 0, 12, 'f' ) );
-    expectPlaceTiles.push_back( PlacedTileInfo( 1, 12, 'e' ) );
-    expectPlaceTiles.push_back( PlacedTileInfo( 2, 12, 'l' ) );
-    expectPlaceTiles.push_back( PlacedTileInfo( 3, 12, 'i' ) );
+    CHECK( subject.Place( 12, 0, 'f' ) );
+    CHECK( subject.Place( 12, 1, 'e' ) );
+    CHECK( subject.Place( 12, 2, 'l' ) );
+    CHECK( subject.Place( 12, 3, 'i' ) );
+
+    std::vector<Position> expectPlacePositions;
+    expectPlacePositions.push_back( Position( 12, 0 ) );
+    expectPlacePositions.push_back( Position( 12, 1 ) );
+    expectPlacePositions.push_back( Position( 12, 2 ) );
+    expectPlacePositions.push_back( Position( 12, 3 ) );
     
-    CHECK( CheckPlacedTiles( subject.GetPlacedTiles(), subject.GetPlacedNum(),
-                             &expectPlaceTiles[0], expectPlaceTiles.size() ) );
+    CHECK( CheckPlacedPositions( subject.GetPlacedTiles(), subject.GetPlacedNum(),
+                             &expectPlacePositions[0], expectPlacePositions.size() ) );
 
     CHECK( subject.Undo() );
 
-    expectPlaceTiles.pop_back();
-    CHECK( CheckPlacedTiles( subject.GetPlacedTiles(), subject.GetPlacedNum(),
-                             &expectPlaceTiles[0], expectPlaceTiles.size() ) );
+    expectPlacePositions.pop_back();
+    CHECK( CheckPlacedPositions( subject.GetPlacedTiles(), subject.GetPlacedNum(),
+                             &expectPlacePositions[0], expectPlacePositions.size() ) );
 
-    CHECK( subject.Place( 4, 12, 'x' ) );
-    CHECK( subject.Place( 6, 12, 'i' ) );
-    CHECK( subject.Place( 8, 12, 'g' ) );
+    CHECK( subject.Place( 12, 4, 'x' ) );
+    CHECK( subject.Place( 12, 6, 'i' ) );
+    CHECK( subject.Place( 12, 8, 'g' ) );
 
-    expectPlaceTiles.push_back( PlacedTileInfo( 4, 12, 'x' ) );
-    expectPlaceTiles.push_back( PlacedTileInfo( 6, 12, 'i' ) );
-    expectPlaceTiles.push_back( PlacedTileInfo( 8, 12, 'g' ) );
+    expectPlacePositions.push_back( Position( 12, 4 ) );
+    expectPlacePositions.push_back( Position( 12, 6 ) );
+    expectPlacePositions.push_back( Position( 12, 8 ) );
 
-    CHECK( CheckPlacedTiles( subject.GetPlacedTiles(), subject.GetPlacedNum(),
-                             &expectPlaceTiles[0], expectPlaceTiles.size() ) );
+    CHECK( CheckPlacedPositions( subject.GetPlacedTiles(), subject.GetPlacedNum(),
+                             &expectPlacePositions[0], expectPlacePositions.size() ) );
 
-    Board::Iterator itr;
-    Board::Iterator end;
+    Board::Iterator itr( &subject );
+    Board::Iterator end( &subject );
 
-    CHECK( subject.GetLine( 8, 12, false, itr, end ) );
+    CHECK( subject.GetLine( 12, 8, false, itr, end ) );
     CHECK( itr->type == Board::PLACED );
     CHECK( itr->ch == 'x' );
 
