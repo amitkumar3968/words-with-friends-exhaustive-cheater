@@ -4,10 +4,10 @@
 
 ScoreRank::ScoreRank( )
 : m_heapFisrt   ( m_entitesHeap ),
-  m_heapLast    ( m_entitesHeap + MAX_RESULTS -1 ),
-  m_heapEnd     ( m_entitesHeap + MAX_RESULTS )
+  m_heapLast    ( m_entitesHeap + MAX_GRID -1 ),
+  m_heapEnd     ( m_entitesHeap + MAX_GRID )
 {
-    for(int i =0; i < MAX_RESULTS ; ++i)
+    for(int i =0; i < MAX_GRID ; ++i)
     {
         m_entitesHeap[i].m_score           = 0;
         m_entitesHeap[i].m_numPlacedTiles  = 0;
@@ -20,7 +20,7 @@ ScoreRank::ScoreRank( )
         m_entitesHeap[i].m_placedTiles = m_placedTilesBuffer[i];
     }
 
-    m_results.reserve( 15 );
+    m_results.reserve( MAX_GRID );
     m_results.clear();
 
     std::make_heap( m_heapFisrt, m_heapEnd, GreaterRank() );
@@ -63,7 +63,7 @@ void ScoreRank::GetResults( std::vector<RankEntity>::const_iterator& begin,
 
 void ScoreRank::Reset()
 {
-    for(int i =0; i < MAX_RESULTS ; ++i)
+    for(int i =0; i < MAX_GRID ; ++i)
     {
         m_entitesHeap[i].m_score           = 0;
         m_entitesHeap[i].m_numPlacedTiles  = 0;

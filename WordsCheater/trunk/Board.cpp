@@ -7,23 +7,32 @@
 
 namespace
 {
-    void ResetBoardState( Board::GridInfo grid[][MAX_RESULTS], Position* placedTilesPos, int& m_placedNum )
+    void ResetBoardState( Board::GridInfo grid[][Board::MAX_GRID], Position* placedTilesPos, int& m_placedNum )
     {
-        for(int i=0;i<MAX_RESULTS;++i)
+        for(int i=0;i<Board::MAX_GRID;++i)
         {
-            for(int j=0;j<MAX_RESULTS;++j)
+            for(int j=0;j<Board::MAX_GRID;++j)
             {
                 grid[i][j].type = Board::EMPTY;
                 grid[i][j].ch   = 0;
             }
         }
     
-        for(int i=0;i<MAX_TILES_TO_PLACE;++i)
+        for(int i=0;i<Board::MAX_TILES_TO_PLACE;++i)
         {
             placedTilesPos[i].m_row        = 0;
             placedTilesPos[i].m_col        = 0;
         }
         m_placedNum = 0;
+    }
+
+    void MarkTrue( bool grid[][Board::MAX_GRID], int row, int col )
+    {
+            if (row < 0 || row > Board::MAX_GRID-1 ||
+                col < 0 || col > Board::MAX_GRID-1 )
+                return;
+
+            grid[row][col] = true;
     }
 }
 
@@ -88,8 +97,8 @@ Board::Iterator& Board::Iterator::operator--()
 
 const Board::GridInfo& Board::Iterator::operator*() const
 {
-    if( m_row < 0 || m_row > MAX_RESULTS-1 ||
-        m_col < 0 || m_col > MAX_RESULTS-1 )
+    if( m_row < 0 || m_row > MAX_GRID-1 ||
+        m_col < 0 || m_col > MAX_GRID-1 )
         return m_board->m_invalidGrid;
 
     return m_board->m_grid[m_row][m_col];
@@ -97,11 +106,16 @@ const Board::GridInfo& Board::Iterator::operator*() const
 
 const Board::GridInfo* Board::Iterator::operator->() const
 {
-    if( m_row < 0 || m_row > MAX_RESULTS-1 ||
-        m_col < 0 || m_col > MAX_RESULTS-1 )
+    if( m_row < 0 || m_row > MAX_GRID-1 ||
+        m_col < 0 || m_col > MAX_GRID-1 )
         return &m_board->m_invalidGrid;
 
     return &( m_board->m_grid[m_row][m_col] );
+}
+
+const Position  Board::Iterator::GetPosition() const
+{
+    return Position( m_row, m_col );
 }
 
 Board::Board()
@@ -130,12 +144,12 @@ void Board::ResetFromFile( const std::string& filePath )
     std::string line;
     while( getline( file, line, '\n' ) )
     {
-        if( line.size() >= MAX_RESULTS )
+        if( line.size() >= MAX_GRID )
         {
-            if( numLine > MAX_RESULTS-1 )
+            if( numLine > MAX_GRID-1 )
                 throw std::invalid_argument( __FUNCTION__ "parse file line error" );
         
-            for(int i=0;i<MAX_RESULTS;++i)
+            for(int i=0;i<MAX_GRID;++i)
             {
                 GridType type;
                 char ch;
@@ -159,6 +173,16 @@ bool Board::Place( int row, int col, char ch )
         m_placedNum < 0 ||
         m_placedNum > 7 )
         return false;
+
+    if( m_placedNum == 1 )
+    {
+        if( m_placedTilesPos[0].m_row == row )
+            m_isVertical = false;
+        else if ( m_placedTilesPos[0].m_col == col )
+            m_isVertical = true;
+        else
+            return false;
+    }
 
     m_placedTilesPos[m_placedNum].m_row = row;
     m_placedTilesPos[m_placedNum].m_col = col;
@@ -194,6 +218,11 @@ int Board::GetPlacedNum() const
     return m_placedNum;
 }
 
+bool Board::IsVertical( )
+{
+    return m_isVertical;
+}
+
 bool Board::GetEnds( int row, int col, bool isVertical, 
                      Iterator& front, Iterator& back )
 {
@@ -222,16 +251,56 @@ bool Board::GetLine( int row, int col, bool isVertical,
     return true;
 }
 
+void Board::GetMarkedNeighbour( bool grid[][MAX_GRID] )
+{
+    for(int i=0;i<MAX_GRID;++i)
+    {
+        for(int j=0;j<MAX_GRID;++j)
+        {
+            grid[i][j] = false;
+        }
+    }
+
+    for(int i=0;i<MAX_GRID;++i)
+    {
+        for(int j=0;j<MAX_GRID;++j)
+        {
+            if( m_grid[i][j].type == ORIGINAL )
+            {
+                MarkTrue( grid ,i ,j-1 );
+                MarkTrue( grid ,i ,j+1 );
+                MarkTrue( grid ,i-1 ,j );
+                MarkTrue( grid ,i+1 ,j );
+            }
+            else if( m_grid[i][j].type != EMPTY )
+                throw std::runtime_error( __FUNCTION__ "grid must be ORIGIN/EMPTY" );
+        }
+    }
+
+    for(int i=0;i<MAX_GRID;++i)
+    {
+        for(int j=0;j<MAX_GRID;++j)
+        {
+            if( m_grid[i][j].type == ORIGINAL )
+            {
+                grid[i][j] = false;
+            }
+            else if( m_grid[i][j].type != EMPTY )
+                throw std::runtime_error( __FUNCTION__ "grid must be ORIGIN/EMPTY" );
+        }
+    }
+}
+
 void Board::printToStream( std::ostream& stream, PlacedTileInfo* placedTile, int placedSize ) const
 {
     //place all placed tile first
     if( placedSize < 0 || placedSize > MAX_TILES_TO_PLACE-1 )
         throw std::runtime_error( __FUNCTION__ "invalid placedSize" );
 
-    char placedBoard[MAX_RESULTS][MAX_RESULTS];
-    for(int i=0;i<MAX_RESULTS;++i)
+    char placedBoard[MAX_GRID][MAX_GRID];
+    for(int i=0;i<MAX_GRID;++i)
     {
-        for(int j=0;j<MAX_RESULTS;++j)
+        for(int j=0;j<MAX_GRID;++j)
         {
             placedBoard[i][j] = 0;
         }
@@ -240,12 +309,12 @@ void Board::printToStream( std::ostream& stream, PlacedTileInfo* placedTile, int
         placedBoard[placedTile->m_row][placedTile->m_col] = placedTile->m_placedChar;
 
     //print to stream
-    for(int i=0;i<MAX_RESULTS;++i)
+    for(int i=0;i<MAX_GRID;++i)
     {
-        for(int j=0;j<MAX_RESULTS;++j)
+        for(int j=0;j<MAX_GRID;++j)
         {
             if( placedBoard[i][j] != 0 )
-            {
+            {    
                 //convert to upper case
                 stream << placedBoard[i][j] - CASE_DIFF << " ";
                 if( m_grid[i][j].type != Board::EMPTY )
@@ -258,10 +327,10 @@ void Board::printToStream( std::ostream& stream, PlacedTileInfo* placedTile, int
             }
             else if( m_grid[i][j].type == Board::EMPTY )
             {
-                if( i == MAX_RESULTS/2 && j == 0 ||
-                    i == 0 && j == MAX_RESULTS/2  ||
-                    i == MAX_RESULTS/2 && j == MAX_RESULTS-1  ||
-                    i == MAX_RESULTS-1 && j == MAX_RESULTS/2 )
+                if( i == MAX_GRID/2 && j == 0 ||
+                    i == 0 && j == MAX_GRID/2  ||
+                    i == MAX_GRID/2 && j == MAX_GRID-1  ||
+                    i == MAX_GRID-1 && j == MAX_GRID/2 )
                     stream << '+' << " ";
                 else
                     stream << '-' << " ";
