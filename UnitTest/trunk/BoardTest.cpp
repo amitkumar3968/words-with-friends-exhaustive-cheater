@@ -260,6 +260,7 @@ TEST( Board, Place_vertical )
 
     CHECK( subject.Place( 3, 10, 'n' ) );
     CHECK( subject.Place( 4, 10, 'o' ) );
+    CHECK( subject.IsVertical() );
     CHECK( subject.Place( 5, 10, 't' ) );
 
     CHECK( subject.Place( 7, 10, 'i' ) );
@@ -320,6 +321,7 @@ TEST( Board, Place_horizontal )
 
     CHECK( subject.Place( 12, 0, 'f' ) );
     CHECK( subject.Place( 12, 1, 'e' ) );
+    CHECK( !subject.IsVertical() );
     CHECK( subject.Place( 12, 2, 'l' ) );
     CHECK( subject.Place( 12, 3, 'i' ) );
     CHECK( subject.Place( 12, 4, 'x' ) );
@@ -397,10 +399,9 @@ TEST( Board, Undo )
 
     CHECK( !subject.Undo() );
 
-    subject.printToStream( std::cout, 0, 0 );
-
     CHECK( subject.Place( 12, 0, 'f' ) );
     CHECK( subject.Place( 12, 1, 'e' ) );
+    CHECK( !subject.IsVertical() );
     CHECK( subject.Place( 12, 2, 'l' ) );
     CHECK( subject.Place( 12, 3, 'i' ) );
 

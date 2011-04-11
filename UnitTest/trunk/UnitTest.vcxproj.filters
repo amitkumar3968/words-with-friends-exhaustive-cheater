@@ -22,6 +22,9 @@
     <Filter Include="TestData\BoardTest">
       <UniqueIdentifier>{76282ba1-e2d7-4bca-8fc3-3ef5ed2647d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TestData\PositionArbitratorTest">
+      <UniqueIdentifier>{b0e619e6-5f00-40ee-9857-f4d181fa28fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UTMain.cpp">
@@ -34,6 +37,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BoardTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PositionArbitratorTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -49,6 +55,9 @@
     </None>
     <None Include="TestData\BoardTest\normalBoard.txt">
       <Filter>TestData\BoardTest</Filter>
+    </None>
+    <None Include="TestData\PositionArbitratorTest\normal.txt">
+      <Filter>TestData\PositionArbitratorTest</Filter>
     </None>
   </ItemGroup>
 </Project>

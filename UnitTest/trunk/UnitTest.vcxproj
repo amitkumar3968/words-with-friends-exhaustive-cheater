@@ -82,6 +82,7 @@
   <ItemGroup>
     <ClCompile Include="BoardTest.cpp" />
     <ClCompile Include="DictionaryTest.cpp" />
+    <ClCompile Include="PositionArbitratorTest.cpp" />
     <ClCompile Include="ScoreRankTest.cpp" />
     <ClCompile Include="UTMain.cpp" />
   </ItemGroup>
@@ -90,6 +91,7 @@
     <None Include="TestData\BoardTest\normalBoard.txt" />
     <None Include="TestData\BoardTest\emptyBoard.txt" />
     <None Include="TestData\DictionaryTest\dict.txt" />
+    <None Include="TestData\PositionArbitratorTest\normal.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
