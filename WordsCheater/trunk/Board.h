@@ -1,15 +1,16 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-
 namespace
 {
     const int CASE_DIFF = 'a' - 'A';
 }
 
 #include "Position.h"
+#include "PlacedTileInfo.h"
 
 #include <string>
+#include <vector>
 
 struct PlacedTileInfo;
 
@@ -59,6 +60,7 @@ public:
     ~Board();
 
 public:
+    void Reset();
     void ResetFromFile( const std::string& filePath );
     bool Place( int row, int col, char ch );
     bool Undo();
@@ -71,9 +73,10 @@ public:
                   Iterator& begin, Iterator& end );
     void GetMarkedNeighbour( bool markedGrid[][MAX_GRID] );
     void printToStream( std::ostream& stream, PlacedTileInfo* placedTile, int placedSize ) const;
+    bool ParseFileBoard( std::ifstream& file, std::vector<PlacedTileInfo>& placedTiles );
 
 private:
-    bool parseFileChar( const char fileChar, GridType& type, char& ch ) const;
+    bool ParseFileChar( const char fileChar, GridType& type, char& ch, bool& isPlacedTiles ) const;
 
 private:
     int               m_placedNum;

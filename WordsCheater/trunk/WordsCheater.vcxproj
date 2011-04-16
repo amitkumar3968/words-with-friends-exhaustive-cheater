@@ -78,6 +78,7 @@
     <ClCompile Include="PlacedTileInfo.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="PositionArbitrator.cpp" />
+    <ClCompile Include="ScoreCalculator.cpp" />
     <ClCompile Include="ScoreRank.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +88,7 @@
     <ClInclude Include="PlacedTileInfo.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="PositionArbitrator.h" />
+    <ClInclude Include="ScoreCalculator.h" />
     <ClInclude Include="ScoreRank.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

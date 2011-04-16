@@ -1,7 +1,5 @@
 #include "Board.h"
 
-#include "PlacedTileInfo.h"
-
 #include <fstream>
 #include <iostream>
 
@@ -132,39 +130,20 @@ Board::~Board()
 {
 }
 
+void Board::Reset( )
+{
+    ResetBoardState( m_grid, m_placedTilesPos, m_placedNum );
+}
+
 void Board::ResetFromFile( const std::string& filePath )
 {
     ResetBoardState( m_grid, m_placedTilesPos, m_placedNum );
 
-    std::ifstream file ( filePath.c_str(), std::ios_base::in);
+    std::ifstream file ( filePath.c_str(), std::ios_base::in );
     if( !file )
         throw std::invalid_argument( __FUNCTION__ "Load Board file error" );
 
-    int numLine = 0;
-    std::string line;
-    while( getline( file, line, '\n' ) )
-    {
-        if( line.size() >= MAX_GRID )
-        {
-            if( numLine > MAX_GRID-1 )
-                throw std::invalid_argument( __FUNCTION__ "parse file line error" );
-        
-            for(int i=0;i<MAX_GRID;++i)
-            {
-                GridType type;
-                char ch;
-                if( parseFileChar( line[i], type, ch ) )
-                {
-                    m_grid[numLine][i].type = type;
-                    m_grid[numLine][i].ch   = ch;
-                }
-                else
-                    throw std::invalid_argument( __FUNCTION__ "parse file char error" );
-            }
-            ++numLine;
-        }
-    }
-
+    ParseFileBoard( file, std::vector<PlacedTileInfo>() );
 }
 
 bool Board::Place( int row, int col, char ch )
@@ -316,14 +295,13 @@ void Board::printToStream( std::ostream& stream, PlacedTileInfo* placedTile, int
             if( placedBoard[i][j] != 0 )
             {    
                 //convert to upper case
-                stream << placedBoard[i][j] - CASE_DIFF << " ";
+                stream << placedBoard[i][j] << " ";
                 if( m_grid[i][j].type != Board::EMPTY )
                     throw std::runtime_error( __FUNCTION__ "must be empty for placed tile" );
             }
             else if( m_grid[i][j].type == Board::ORIGINAL  )
             {
-                //convert to upper case
-                stream << static_cast<char> ( m_grid[i][j].ch - CASE_DIFF ) << " " ;
+                stream << m_grid[i][j].ch << " " ;
             }
             else if( m_grid[i][j].type == Board::EMPTY )
             {
@@ -335,6 +313,11 @@ void Board::printToStream( std::ostream& stream, PlacedTileInfo* placedTile, int
                 else
                     stream << '-' << " ";
             }
+            else if( m_grid[i][j].type == Board::PLACED && placedSize  == 0 )
+            {
+                //covert to upper case
+                stream << static_cast<char> ( m_grid[i][j].ch - CASE_DIFF ) << " " ;            
+            }
             else
                 throw std::runtime_error( __FUNCTION__ "unexpected grid type" );
         }
@@ -343,26 +326,60 @@ void Board::printToStream( std::ostream& stream, PlacedTileInfo* placedTile, int
     stream << std::endl;
 }
 
-bool Board::parseFileChar( const char fileChar, GridType& type, char& ch ) const
+bool Board::ParseFileBoard( std::ifstream& file, std::vector<PlacedTileInfo>& placedTiles  )
 {
+    std::string line;
+    std::vector<char> placedTile;
+    int numLine = 0;
+    while( numLine<MAX_GRID && getline( file, line, '\n' ))
+    {
+
+        if( line.size() >= MAX_GRID )
+        {
+            for(int i=0;i<MAX_GRID;++i)
+            {
+                GridType type;
+                char ch;
+                bool isPlacedTiles;
+                if( ParseFileChar( line[i], type, ch, isPlacedTiles ) )
+                {
+                    m_grid[numLine][i].type = type;
+                    m_grid[numLine][i].ch   = ch;
+                    if( isPlacedTiles )
+                        placedTiles.push_back( PlacedTileInfo( numLine, i, static_cast<char>( line[i] + CASE_DIFF ) ) );
+                }
+                else
+                    throw std::invalid_argument( __FUNCTION__ "parse file char error" );
+            }
+            ++numLine;
+        }
+    }
+
+    return numLine == MAX_GRID;
+}
+
+bool Board::ParseFileChar( const char fileChar, GridType& type, char& ch, bool& isPlacedTiles ) const
+{
+    isPlacedTiles = false;
     if( fileChar == '-' || fileChar == '+' )
     {
         type = Board::EMPTY;
         ch = 0;
         return true;
     }
-    else if( fileChar >= 'a' || fileChar <='z' )
+    else if( fileChar >= 'A' && fileChar <= 'Z' )
+    {
+        type = Board::EMPTY;
+        ch = 0;
+        isPlacedTiles = true;
+        return true;
+    }
+    else if( fileChar >= 'a' && fileChar <='z' )
     {
         type = Board::ORIGINAL;
         ch = fileChar;
         return true;
     }
-    else if( fileChar >= 'A' || fileChar <= 'Z' )
-    {
-        type = Board::ORIGINAL;
-        //convert to lower case
-        ch = fileChar + CASE_DIFF;
-        return true;
-    }
+
     return false;
 }

@@ -3,9 +3,12 @@
 
 struct BoardPosInfo
 {
-    enum TilePosType { NONE,
-                       ORIGINAL,
-                       PLACED };
+    enum TilePosType 
+    { 
+        NONE,
+        ORIGINAL,
+        PLACED 
+    };
 
     explicit BoardPosInfo( );
 
