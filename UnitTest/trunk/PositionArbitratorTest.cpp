@@ -1,6 +1,6 @@
 #include "TestHarness.h"
-#include "PositionArbitrator.h"
 
+#include "PositionArbitrator.h"
 #include "Board.h"
 
 #include <vector>
