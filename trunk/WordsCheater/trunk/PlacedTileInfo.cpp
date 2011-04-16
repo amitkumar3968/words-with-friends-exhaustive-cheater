@@ -3,16 +3,16 @@
 
 PlacedTileInfo::PlacedTileInfo()
 {
-    int  m_row = -1;
-    int  m_col = -1;
-    char m_placedChar = 0;
+    m_row = -1;
+    m_col = -1;
+    m_placedChar = 0;
 }
 
 PlacedTileInfo::PlacedTileInfo(int row, int col, int ch )
 {
-    int  m_row = row;
-    int  m_col = col;
-    char m_placedChar = ch;
+    m_row = row;
+    m_col = col;
+    m_placedChar = ch;
 }
 
 bool PlacedTileInfo::operator==( const PlacedTileInfo& rhs ) const
