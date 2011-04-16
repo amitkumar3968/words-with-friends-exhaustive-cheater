@@ -25,6 +25,9 @@
     <Filter Include="TestData\PositionArbitratorTest">
       <UniqueIdentifier>{b0e619e6-5f00-40ee-9857-f4d181fa28fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TestData\ScoreCalculatorTest">
+      <UniqueIdentifier>{f2ef1ae3-6334-45ec-85c7-5ea4214b538e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UTMain.cpp">
@@ -40,6 +43,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PositionArbitratorTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreCalculatorTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -58,6 +64,9 @@
     </None>
     <None Include="TestData\PositionArbitratorTest\normal.txt">
       <Filter>TestData\PositionArbitratorTest</Filter>
+    </None>
+    <None Include="TestData\ScoreCalculatorTest\all.txt">
+      <Filter>TestData\ScoreCalculatorTest</Filter>
     </None>
   </ItemGroup>
 </Project>

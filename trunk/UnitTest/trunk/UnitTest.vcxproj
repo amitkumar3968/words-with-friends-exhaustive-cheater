@@ -50,7 +50,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(CPP_UNIT_LITE)\;$(WORDS_CHEATER)\;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(CPP_UNIT_LITE)\;$(WORDS_CHEATER)\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -68,7 +68,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(CPP_UNIT_LITE)\;$(WORDS_CHEATER)\;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(CPP_UNIT_LITE)\;$(WORDS_CHEATER)\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -83,6 +83,7 @@
     <ClCompile Include="BoardTest.cpp" />
     <ClCompile Include="DictionaryTest.cpp" />
     <ClCompile Include="PositionArbitratorTest.cpp" />
+    <ClCompile Include="ScoreCalculatorTest.cpp" />
     <ClCompile Include="ScoreRankTest.cpp" />
     <ClCompile Include="UTMain.cpp" />
   </ItemGroup>
@@ -92,6 +93,7 @@
     <None Include="TestData\BoardTest\emptyBoard.txt" />
     <None Include="TestData\DictionaryTest\dict.txt" />
     <None Include="TestData\PositionArbitratorTest\normal.txt" />
+    <None Include="TestData\ScoreCalculatorTest\all.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
