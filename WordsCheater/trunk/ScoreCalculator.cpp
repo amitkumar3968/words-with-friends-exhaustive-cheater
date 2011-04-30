@@ -1,7 +1,7 @@
 #include "ScoreCalculator.h"
 
 #include "Board.h"
-#include "Dictionary.h"
+#include "IDict.h"
 
 namespace
 {
@@ -39,7 +39,7 @@ namespace
 
 }
 
-ScoreCalculator::ScoreCalculator( Board* board, Dictionary* dict )
+ScoreCalculator::ScoreCalculator( Board* board, IDict* dict )
 : m_board   ( board ),
   m_dict    ( dict )
 {
@@ -76,9 +76,9 @@ bool ScoreCalculator::Calculate( int& score )
         int lineScore = 0;
         LineScoreResult lineResult = CalculateLine( placedTiles[i].m_row, placedTiles[i].m_col, !m_board->IsVertical(), lineScore );
     
-        if( result == NEVER_VALID )
+        /*if( result == NEVER_VALID )
             return false;
-        else if( result == NOT_VALID )
+        else*/ if( result == NOT_VALID )
         {
             score = 0;
             return true;
@@ -113,8 +113,8 @@ ScoreCalculator::LineScoreResult ScoreCalculator::CalculateLine( const int row,
     if( numTiles == 1 )
         return ONE_TILE;
 
-    if( !m_dict->IsSubStringValid( str ) )
-        return NEVER_VALID;
+    //if( !m_dict->IsSubStringValid( str ) )
+    //    return NEVER_VALID;
 
     if( !m_dict->IsStringValid( str ) )
         return NOT_VALID;

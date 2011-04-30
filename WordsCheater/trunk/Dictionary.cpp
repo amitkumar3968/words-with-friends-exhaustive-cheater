@@ -17,7 +17,7 @@ Dictionary::Dictionary( const std::string& dictFilePath )
     ifs.close( );
 }
 
-bool Dictionary::IsStringValid( const std::string& str )
+bool Dictionary::IsStringValid( const std::string& str ) const 
 {
     if( str.size() < 2 )
         return false;
@@ -27,7 +27,7 @@ bool Dictionary::IsStringValid( const std::string& str )
                               ex );
 }
 
-bool Dictionary::IsSubStringValid( const std::string& str )
+bool Dictionary::IsSubStringValid( const std::string& str ) const 
 {
     if( str.size() < 2 )
         return false;

@@ -2,7 +2,7 @@
 #define SCORECALCULATOR_H
 
 class Board;
-class Dictionary;
+class IDict;
 
 class ScoreCalculator
 {
@@ -16,7 +16,7 @@ private:
     };
 
 public:
-    ScoreCalculator( Board* board, Dictionary* dict );
+    ScoreCalculator( Board* board, IDict* dict );
     ~ScoreCalculator( );
 
     bool Calculate( int& score );
@@ -26,8 +26,8 @@ public:
                                    int& score );
 
 private:
-    Board*	        m_board;
-    Dictionary*     m_dict;
+    Board*	   m_board;
+    IDict*     m_dict;
 
 };
 
