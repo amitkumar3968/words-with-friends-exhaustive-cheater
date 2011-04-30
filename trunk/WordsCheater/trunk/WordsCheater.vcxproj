@@ -75,21 +75,27 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="BoardPosInfo.cpp" />
     <ClCompile Include="Dictionary.cpp" />
+    <ClCompile Include="IDict.cpp" />
     <ClCompile Include="PlacedTileInfo.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="PositionArbitrator.cpp" />
     <ClCompile Include="ScoreCalculator.cpp" />
     <ClCompile Include="ScoreRank.cpp" />
+    <ClCompile Include="Trie.cpp" />
+    <ClCompile Include="TrieDictionary.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="BoardPosInfo.h" />
     <ClInclude Include="Dictionary.h" />
+    <ClInclude Include="IDict.h" />
     <ClInclude Include="PlacedTileInfo.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="PositionArbitrator.h" />
     <ClInclude Include="ScoreCalculator.h" />
     <ClInclude Include="ScoreRank.h" />
+    <ClInclude Include="Trie.h" />
+    <ClInclude Include="TrieDictionary.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
