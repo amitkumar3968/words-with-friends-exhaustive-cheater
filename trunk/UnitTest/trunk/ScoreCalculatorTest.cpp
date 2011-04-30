@@ -3,10 +3,12 @@
 #include "ScoreCalculator.h"
 #include "Board.h"
 #include "Dictionary.h"
+#include "TrieDictionary.h"
 
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <time.h>
 #include <vector>
 
 namespace
@@ -42,15 +44,18 @@ namespace
 
 TEST( ScoreCalculator, TestDriven )
 {
-    std::ifstream file ( TEST_DATA + "all.txt", std::ios_base::in );
+    std::ifstream file ( TEST_DATA + "isStringValid.txt", std::ios_base::in );
     if( !file )
         return;
 
     Board board;
-    Dictionary dict(  TEST_DATA + "enable1.txt" );
+    TrieDictionary dict(  TEST_DATA + "enable1.txt" );
     ScoreCalculator subject( &board, &dict );
 
     int numTestCase = 0;
+    clock_t start, finish;
+
+    start = clock();
 
     while( 1 )
     {
@@ -75,5 +80,8 @@ TEST( ScoreCalculator, TestDriven )
             break;
     }
 
-    std::cout << numTestCase << " Test Cases Passed.";
+    finish = clock();
+
+    std::cout << (finish - start) <<" " <<CLOCKS_PER_SEC  << "ms taken for running " << numTestCase << " cases." << std::endl;
+    //std::cout << ( double (finish - start)/CLOCKS_PER_SEC ) << "ms taken for running " << numTestCase << " cases." << std::endl;
 }

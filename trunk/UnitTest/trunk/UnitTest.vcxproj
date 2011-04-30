@@ -85,6 +85,7 @@
     <ClCompile Include="PositionArbitratorTest.cpp" />
     <ClCompile Include="ScoreCalculatorTest.cpp" />
     <ClCompile Include="ScoreRankTest.cpp" />
+    <ClCompile Include="TrieDictionaryTest.cpp" />
     <ClCompile Include="UTMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -93,7 +94,8 @@
     <None Include="TestData\BoardTest\emptyBoard.txt" />
     <None Include="TestData\DictionaryTest\dict.txt" />
     <None Include="TestData\PositionArbitratorTest\normal.txt" />
-    <None Include="TestData\ScoreCalculatorTest\all.txt" />
+    <None Include="TestData\ScoreCalculatorTest\isStringValid.txt" />
+    <None Include="TestData\ScoreCalculatorTest\isSubStringValid.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
