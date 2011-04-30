@@ -1,16 +1,16 @@
 #include "TestHarness.h"
-#include "Dictionary.h"
+#include "TrieDictionary.h"
 
 namespace
 {
     const std::string DICT_FILE = "../TestData/DictionaryTest/dict.txt";
 }
 
-TEST( Dictionay, Constructor )
+TEST( TrieDictionay, Constructor )
 {
     try
     {
-        Dictionary subject( "asdsf" );
+        TrieDictionary subject( "asdsf" );
         CHECK( false );
     }
     catch( std::invalid_argument e )
@@ -20,7 +20,7 @@ TEST( Dictionay, Constructor )
 
     try
     {
-        Dictionary subject( DICT_FILE );
+        TrieDictionary subject( DICT_FILE );
     }
     catch( std::invalid_argument e )
     {
@@ -28,10 +28,11 @@ TEST( Dictionay, Constructor )
     }
 }
 
-TEST( Dictionay, IsStringValid )
+TEST( TrieDictionay, IsStringValid )
 {
+    TrieDictionary subject( DICT_FILE );
+
     //valid string
-    Dictionary subject( DICT_FILE );
     CHECK( subject.IsStringValid( "abc" ) );
     CHECK( subject.IsStringValid( "edd" ) );
     CHECK( subject.IsStringValid( "irfwoi" ) );
@@ -50,11 +51,12 @@ TEST( Dictionay, IsStringValid )
     CHECK( !subject.IsStringValid( "s" ) );
     CHECK( !subject.IsStringValid( "" ) );
 }
-
-TEST( Dictionay, IsSubStringValid )
+/*
+TEST( TrieDictionay, IsSubStringValid )
 {
+    TrieDictionary subject( DICT_FILE );
+
     //valid string
-    Dictionary subject( DICT_FILE );
     CHECK( subject.IsSubStringValid( "ab" ) );
     CHECK( subject.IsSubStringValid( "abc" ) );
     CHECK( subject.IsSubStringValid( "edd" ) );
@@ -70,11 +72,11 @@ TEST( Dictionay, IsSubStringValid )
     CHECK( !subject.IsSubStringValid( "wwed" ) );
     CHECK( !subject.IsSubStringValid( "s" ) );
     CHECK( !subject.IsSubStringValid( "" ) );
-}
+}*/
 
-TEST( Dictionary, WildCharForIsStringValid )
+TEST( TrieDictionary, WildCharForIsStringValid )
 {
-    Dictionary subject( DICT_FILE );
+    TrieDictionary subject( DICT_FILE );
 
     //valid string for IsStringValid
     CHECK( subject.IsStringValid( "a.c" ) );
@@ -88,10 +90,10 @@ TEST( Dictionary, WildCharForIsStringValid )
     CHECK( !subject.IsStringValid( "ass." ) );
     CHECK( !subject.IsStringValid( "." ) );
 }
-
-TEST( Dictionary, WildCharForIsSubStringValid )
+/*
+TEST( TrieDictionary, WildCharForIsSubStringValid )
 {
-    Dictionary subject( DICT_FILE );
+    TrieDictionary subject( DICT_FILE );
 
     //valid string for IsSubStringValid
     CHECK( subject.IsSubStringValid( "a." ) );
@@ -104,4 +106,4 @@ TEST( Dictionary, WildCharForIsSubStringValid )
     //Invalid string for IsSubStringValid
     CHECK( !subject.IsSubStringValid( "ad." ) );
     CHECK( !subject.IsSubStringValid( "." ) );
-}
+}*/

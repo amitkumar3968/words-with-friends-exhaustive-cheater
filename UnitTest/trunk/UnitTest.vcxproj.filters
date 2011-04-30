@@ -48,6 +48,9 @@
     <ClCompile Include="ScoreCalculatorTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TrieDictionaryTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="TestData\DictionaryTest\dict.txt">
@@ -65,7 +68,10 @@
     <None Include="TestData\PositionArbitratorTest\normal.txt">
       <Filter>TestData\PositionArbitratorTest</Filter>
     </None>
-    <None Include="TestData\ScoreCalculatorTest\all.txt">
+    <None Include="TestData\ScoreCalculatorTest\isStringValid.txt">
+      <Filter>TestData\ScoreCalculatorTest</Filter>
+    </None>
+    <None Include="TestData\ScoreCalculatorTest\isSubStringValid.txt">
       <Filter>TestData\ScoreCalculatorTest</Filter>
     </None>
   </ItemGroup>
