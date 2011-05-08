@@ -75,6 +75,7 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="BoardPosInfo.cpp" />
     <ClCompile Include="Dictionary.cpp" />
+    <ClCompile Include="ExhaustiveVisitor.cpp" />
     <ClCompile Include="IDict.cpp" />
     <ClCompile Include="PlacedTileInfo.cpp" />
     <ClCompile Include="Position.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="Board.h" />
     <ClInclude Include="BoardPosInfo.h" />
     <ClInclude Include="Dictionary.h" />
+    <ClInclude Include="ExhaustiveVisitor.h" />
     <ClInclude Include="IDict.h" />
     <ClInclude Include="PlacedTileInfo.h" />
     <ClInclude Include="Position.h" />

@@ -5,7 +5,7 @@ class Trie
 {
 public:
     Trie( );
-    ~Trie( );
+    virtual ~Trie( );
 
     void add( const char* );
     bool lookup( const char* str ) const;

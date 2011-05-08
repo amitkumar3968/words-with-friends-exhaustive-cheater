@@ -12,12 +12,12 @@ private:
         NEVER_VALID,
         NOT_VALID,
         ONE_TILE,
-        VALID,
+        VALID
     };
 
 public:
     ScoreCalculator( Board* board, IDict* dict );
-    ~ScoreCalculator( );
+    virtual ~ScoreCalculator( );
 
     bool Calculate( int& score );
     LineScoreResult CalculateLine( const int row,

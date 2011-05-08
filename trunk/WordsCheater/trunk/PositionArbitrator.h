@@ -11,7 +11,7 @@ class PositionArbitrator
 {
 public:
     explicit PositionArbitrator( Board* board );
-    ~PositionArbitrator( );
+    virtual ~PositionArbitrator( );
 
     void Reset( );
     std::vector<Position>& GetPositionsToPlace( );
