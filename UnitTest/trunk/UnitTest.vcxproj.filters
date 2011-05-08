@@ -28,6 +28,9 @@
     <Filter Include="TestData\ScoreCalculatorTest">
       <UniqueIdentifier>{f2ef1ae3-6334-45ec-85c7-5ea4214b538e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TestData\ExhaustiveVisitorTest">
+      <UniqueIdentifier>{259d60c0-6cec-4b7f-b3ca-02f7e59c57d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UTMain.cpp">
@@ -49,6 +52,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TrieDictionaryTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ExhaustiveVisitorTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -73,6 +79,9 @@
     </None>
     <None Include="TestData\ScoreCalculatorTest\isSubStringValid.txt">
       <Filter>TestData\ScoreCalculatorTest</Filter>
+    </None>
+    <None Include="TestData\ExhaustiveVisitorTest\normal.txt">
+      <Filter>TestData\ExhaustiveVisitorTest</Filter>
     </None>
   </ItemGroup>
 </Project>

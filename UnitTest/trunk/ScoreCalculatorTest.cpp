@@ -49,7 +49,7 @@ TEST( ScoreCalculator, TestDriven )
         return;
 
     Board board;
-    TrieDictionary dict(  TEST_DATA + "enable1.txt" );
+    TrieDictionary dict(  TEST_DATA + "../RealDictionary/enable1.txt" );
     ScoreCalculator subject( &board, &dict );
 
     int numTestCase = 0;
@@ -74,7 +74,6 @@ TEST( ScoreCalculator, TestDriven )
             CHECK( expRtn == subject.Calculate( score ) );
             if( expRtn )
                 CHECK( score == expScore );
-            
         }
         else
             break;
@@ -82,6 +81,5 @@ TEST( ScoreCalculator, TestDriven )
 
     finish = clock();
 
-    std::cout << (finish - start) <<" " <<CLOCKS_PER_SEC  << "ms taken for running " << numTestCase << " cases." << std::endl;
-    //std::cout << ( double (finish - start)/CLOCKS_PER_SEC ) << "ms taken for running " << numTestCase << " cases." << std::endl;
+    std::cout << double(finish - start)/CLOCKS_PER_SEC  << "ms taken for running " << numTestCase << " cases." << std::endl;
 }

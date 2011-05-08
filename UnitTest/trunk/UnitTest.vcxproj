@@ -82,6 +82,7 @@
   <ItemGroup>
     <ClCompile Include="BoardTest.cpp" />
     <ClCompile Include="DictionaryTest.cpp" />
+    <ClCompile Include="ExhaustiveVisitorTest.cpp" />
     <ClCompile Include="PositionArbitratorTest.cpp" />
     <ClCompile Include="ScoreCalculatorTest.cpp" />
     <ClCompile Include="ScoreRankTest.cpp" />
@@ -93,6 +94,7 @@
     <None Include="TestData\BoardTest\normalBoard.txt" />
     <None Include="TestData\BoardTest\emptyBoard.txt" />
     <None Include="TestData\DictionaryTest\dict.txt" />
+    <None Include="TestData\ExhaustiveVisitorTest\normal.txt" />
     <None Include="TestData\PositionArbitratorTest\normal.txt" />
     <None Include="TestData\ScoreCalculatorTest\isStringValid.txt" />
     <None Include="TestData\ScoreCalculatorTest\isSubStringValid.txt" />
