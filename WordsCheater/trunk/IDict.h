@@ -11,7 +11,7 @@ public:
 
     virtual bool IsSubStringValid( const std::string& str ) const = 0;
 
-    virtual ~IDict(void);
+    virtual ~IDict( );
 };
 
 #endif

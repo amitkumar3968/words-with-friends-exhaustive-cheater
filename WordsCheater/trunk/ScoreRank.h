@@ -33,7 +33,7 @@ public:
 
     void Submit( int score,
                  int stateSize,
-                 PlacedTileInfo* placedTiles );
+                 const PlacedTileInfo* placedTiles );
 
     void GetResults( std::vector<RankEntity>::const_iterator& begin,
                      std::vector<RankEntity>::const_iterator& end );

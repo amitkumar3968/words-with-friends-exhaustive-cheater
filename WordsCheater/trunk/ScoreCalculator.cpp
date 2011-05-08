@@ -3,6 +3,8 @@
 #include "Board.h"
 #include "IDict.h"
 
+#include <iostream>
+
 namespace
 {
     enum GridBouns
@@ -59,14 +61,18 @@ bool ScoreCalculator::Calculate( int& score )
 {
     score = 0;
     int placedNum = m_board->GetPlacedNum();
+
+    if( placedNum < 1 )
+        throw std::runtime_error( __FUNCTION__ "impossible to have no tiles placed on board");
+
     const Position* placedTiles = m_board->GetPlacedTiles();
 
     LineScoreResult result = CalculateLine( placedTiles[0].m_row, placedTiles[0].m_col, m_board->IsVertical(), score );
-    if( result == NEVER_VALID )
+    /*if( result == NEVER_VALID )
         return false;
-    else if( result == NOT_VALID )
+    else*/ if( result == NOT_VALID )
         return true;
-    else if ( result == ONE_TILE )
+    else if ( result == ONE_TILE && m_board->GetPlacedNum() != 1 )
         throw std::runtime_error( __FUNCTION__ "only one tile, should be problem of PositionArbitrator");
     
 
@@ -74,7 +80,7 @@ bool ScoreCalculator::Calculate( int& score )
     for( int i =0; i < placedNum; ++i )
     {
         int lineScore = 0;
-        LineScoreResult lineResult = CalculateLine( placedTiles[i].m_row, placedTiles[i].m_col, !m_board->IsVertical(), lineScore );
+        result = CalculateLine( placedTiles[i].m_row, placedTiles[i].m_col, !m_board->IsVertical(), lineScore );
     
         /*if( result == NEVER_VALID )
             return false;

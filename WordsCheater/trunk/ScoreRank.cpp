@@ -26,7 +26,7 @@ ScoreRank::ScoreRank( )
     std::make_heap( m_heapFisrt, m_heapEnd, GreaterRank() );
 }
 
-void ScoreRank::Submit( int score, int stateSize, PlacedTileInfo* placedTiles )
+void ScoreRank::Submit( int score, int stateSize, const PlacedTileInfo* placedTiles )
 {
     //if input score is larger than the min of results
     if( stateSize > 0 &&

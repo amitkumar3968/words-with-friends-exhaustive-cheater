@@ -135,6 +135,21 @@ void Board::Reset( )
     ResetBoardState( m_grid, m_placedTilesPos, m_placedNum );
 }
 
+void Board::Reset( const Board& board )
+{
+    ResetBoardState( m_grid, m_placedTilesPos, m_placedNum );
+    for(int i=0;i<Board::MAX_GRID;++i)
+    {
+        for(int j=0;j<Board::MAX_GRID;++j)
+        {
+            m_grid[i][j].type = board.m_grid[i][j].type;
+            m_grid[i][j].ch   = board.m_grid[i][j].ch;
+        }
+    }
+
+}
+
+
 void Board::ResetFromFile( const std::string& filePath )
 {
     ResetBoardState( m_grid, m_placedTilesPos, m_placedNum );
@@ -190,6 +205,17 @@ bool Board::Undo()
 const Position* Board::GetPlacedTiles() const
 {
     return m_placedTilesPos;
+}
+
+const PlacedTileInfo* Board::GetPlacedTilesInfo()
+{
+    for( int i=0; i<GetPlacedNum( ); ++i )
+    {
+        m_placedTilesInfo[i].m_row = m_placedTilesPos[i].m_row;
+        m_placedTilesInfo[i].m_col = m_placedTilesPos[i].m_col;
+        m_placedTilesInfo[i].m_placedChar = m_grid[m_placedTilesPos[i].m_row][m_placedTilesPos[i].m_col].ch;
+    }
+    return m_placedTilesInfo;
 }
 
 int Board::GetPlacedNum() const
@@ -285,7 +311,7 @@ void Board::printToStream( std::ostream& stream, PlacedTileInfo* placedTile, int
         }
     }
     for(int i=0;i<placedSize;++i)
-        placedBoard[placedTile->m_row][placedTile->m_col] = placedTile->m_placedChar;
+        placedBoard[placedTile[i].m_row][placedTile[i].m_col] = placedTile[i].m_placedChar;
 
     //print to stream
     for(int i=0;i<MAX_GRID;++i)
@@ -295,7 +321,7 @@ void Board::printToStream( std::ostream& stream, PlacedTileInfo* placedTile, int
             if( placedBoard[i][j] != 0 )
             {    
                 //convert to upper case
-                stream << placedBoard[i][j] << " ";
+                stream << static_cast<char>( placedBoard[i][j] - CASE_DIFF ) << " ";
                 if( m_grid[i][j].type != Board::EMPTY )
                     throw std::runtime_error( __FUNCTION__ "must be empty for placed tile" );
             }

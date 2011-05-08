@@ -57,14 +57,16 @@ public:
 
 public:
     Board();
-    ~Board();
+    virtual ~Board();
 
 public:
     void Reset();
+    void Reset( const Board& board );
     void ResetFromFile( const std::string& filePath );
     bool Place( int row, int col, char ch );
     bool Undo();
     const Position* GetPlacedTiles() const;
+    const PlacedTileInfo* GetPlacedTilesInfo();
     int GetPlacedNum() const;
     bool IsVertical( );
     bool GetEnds( int row, int col, bool isVertical, 
@@ -82,6 +84,7 @@ private:
     int               m_placedNum;
     GridInfo          m_grid[MAX_GRID][MAX_GRID];
     Position          m_placedTilesPos[MAX_TILES_TO_PLACE];
+    PlacedTileInfo    m_placedTilesInfo[MAX_TILES_TO_PLACE];
     GridInfo          m_invalidGrid;
     bool              m_isVertical;
 };
