@@ -92,6 +92,8 @@ bool ScoreCalculator::Calculate( int& score )
         else if( result == VALID ) 
         {
             score += lineScore;
+            if( placedNum == 7 )
+                score += 35;
         }
     }
     return true;

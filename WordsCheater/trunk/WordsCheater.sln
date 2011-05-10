@@ -3,6 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WordsCheater", "WordsCheater.vcxproj", "{2E17D148-8875-49E1-892E-D21F0EA646C2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WordsCheaterApplication", "..\WordsCheaterApplication\WordsCheaterApplication.vcxproj", "{ABB50C6E-2032-491C-BE73-2E9C58567C70}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2E17D148-8875-49E1-892E-D21F0EA646C2} = {2E17D148-8875-49E1-892E-D21F0EA646C2}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -17,6 +22,10 @@ Global
 		{2E17D148-8875-49E1-892E-D21F0EA646C2}.Debug|Win32.Build.0 = Debug|Win32
 		{2E17D148-8875-49E1-892E-D21F0EA646C2}.Release|Win32.ActiveCfg = Release|Win32
 		{2E17D148-8875-49E1-892E-D21F0EA646C2}.Release|Win32.Build.0 = Release|Win32
+		{ABB50C6E-2032-491C-BE73-2E9C58567C70}.Debug|Win32.ActiveCfg = Debug|Win32
+		{ABB50C6E-2032-491C-BE73-2E9C58567C70}.Debug|Win32.Build.0 = Debug|Win32
+		{ABB50C6E-2032-491C-BE73-2E9C58567C70}.Release|Win32.ActiveCfg = Release|Win32
+		{ABB50C6E-2032-491C-BE73-2E9C58567C70}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
