@@ -22,7 +22,7 @@ ExhaustiveVisitor::~ExhaustiveVisitor( )
 {
 }
 
-void ExhaustiveVisitor::Initialize( const Board board, const char* tilesToPlace )
+void ExhaustiveVisitor::Initialize( const Board& board, const char* tilesToPlace )
 {
     m_board.Reset( board );
     std::memcpy( m_tilesToPlace, tilesToPlace, Board::MAX_TILES_TO_PLACE );
