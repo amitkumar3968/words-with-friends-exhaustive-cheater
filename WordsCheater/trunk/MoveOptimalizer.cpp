@@ -47,7 +47,7 @@ void MoveOptimalizer::OptimizeMove( std::string& tileToPlace )
     const int totalRunNum = fac( Board::MAX_TILES_TO_PLACE );
 
     int perm[] = { 0, 1, 2, 3, 4, 5, 6 };
-
+    int remainingTime = 0;
     do
     {
         char tilesToPlacePerm[] = { tileToPlace.at( perm[0] ),
@@ -57,28 +57,26 @@ void MoveOptimalizer::OptimizeMove( std::string& tileToPlace )
                                     tileToPlace.at( perm[4] ),
                                     tileToPlace.at( perm[5] ),
                                     tileToPlace.at( perm[6] ) };
-        if ( count%100 == 0 )
-        {
-            std::cout << "run# " << count << " ...";
+        if ( count%150 == 0 )
             eachStart = clock();
-        }
-            m_visitor.Initialize( m_iniBoard, tilesToPlacePerm );
-            m_visitor.RankExhaustively( );
-        if ( count%100 == 0 )
+
+        m_visitor.Initialize( m_iniBoard, tilesToPlacePerm );
+        m_visitor.RankExhaustively( );
+
+        if ( count%50 == 0 )
         {
             eachFinish = clock();
-            int remainingTime  = ( double( eachFinish - start ) / count ) * ( totalRunNum - count ) / CLOCKS_PER_SEC;
-            std::cout << "done. Taken: " << double(eachFinish - eachStart)/CLOCKS_PER_SEC  << "s. "
-                      << "remaining: " << remainingTime/60 << "m " << remainingTime%60 << "s." <<std::endl;
-            std::cout << "  call_count: " << m_visitor.s_runCount 
-                << " submit: " << m_ranker.s_recordedCount <<"/"<<m_ranker.s_submitCount << std::endl;
+            remainingTime  = ( double( eachFinish - start ) / count ) * ( totalRunNum - count ) / CLOCKS_PER_SEC;
+            std::cout << "\xd" << "progress " << count * 100 / totalRunNum << "% " 
+            << "remaining: " << remainingTime/60 << "m " << remainingTime%60 << "s.          ";
         }
         ++count;
     } while( std::next_permutation( perm, perm + Board::MAX_TILES_TO_PLACE ) );
-
+    std::cout << "\xd" << "progress " << 100 << "% " 
+        << "remaining: " << 0 << "m " << 0 << "s.          ";
     finish = clock();
 
-    std::cout << "Finished. Total Time Taken: " << double(finish - start)/CLOCKS_PER_SEC  << "s" <<std::endl;
+    std::cout << std::endl << "Finished. Total Time Taken: " << double(finish - start)/CLOCKS_PER_SEC  << "s" <<std::endl;
 }
 
 void MoveOptimalizer::printResultToStream( std::ostream& stream )
