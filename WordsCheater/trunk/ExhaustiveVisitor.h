@@ -15,7 +15,7 @@ public:
     explicit ExhaustiveVisitor( ScoreRank* scoreRank, std::string dictPath );
     virtual ~ExhaustiveVisitor( );
 
-    void Initialize( const Board board, const char* tilesToPlace );
+    void Initialize( const Board& board, const char* tilesToPlace );
     void RankExhaustively( );
 
 private:
