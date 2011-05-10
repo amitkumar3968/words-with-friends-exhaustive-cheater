@@ -3,7 +3,8 @@
 
 namespace
 {
-    const int MAX_GRID        = 15;
+    const int RANKER_CAPACITY    = 1000;
+    const int MAX_GRID           = 15;
     const int MAX_TILES_TO_PLACE = 7;
 }
 
@@ -41,12 +42,19 @@ public:
     void Reset();
 
 private:
-    PlacedTileInfo           m_placedTilesBuffer[MAX_GRID][MAX_TILES_TO_PLACE];
-    RankEntity               m_entitesHeap[MAX_GRID];
+    PlacedTileInfo           m_placedTilesBuffer[RANKER_CAPACITY][MAX_TILES_TO_PLACE];
+    RankEntity               m_entitesHeap[RANKER_CAPACITY];
     std::vector<RankEntity>  m_results;
     RankEntity* const        m_heapFisrt;
     RankEntity* const        m_heapLast;
     RankEntity* const        m_heapEnd;
+
+//stat
+public:
+    int     s_submitCount;
+    int     s_recordedCount;
+
+    void ResetStat();
 };
 
 

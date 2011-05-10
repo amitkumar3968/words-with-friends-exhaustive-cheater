@@ -26,8 +26,11 @@ private:
     PositionArbitrator  m_placingPos;
     ScoreCalculator     m_scoreCal;
 
-
     ScoreRank*          m_scoreRank;
+
+    //stat
+public:
+    long long s_runCount;
 };
 
 #endif

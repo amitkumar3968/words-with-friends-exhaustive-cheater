@@ -299,8 +299,8 @@ void Board::GetMarkedNeighbour( bool grid[][MAX_GRID] )
 void Board::printToStream( std::ostream& stream, PlacedTileInfo* placedTile, int placedSize ) const
 {
     //place all placed tile first
-    if( placedSize < 0 || placedSize > MAX_TILES_TO_PLACE-1 )
-        throw std::runtime_error( __FUNCTION__ "invalid placedSize" );
+    if( placedSize < 0 || placedSize > MAX_TILES_TO_PLACE )
+        throw std::runtime_error( __FUNCTION__ " invalid placedSize" );
 
     char placedBoard[MAX_GRID][MAX_GRID];
     for(int i=0;i<MAX_GRID;++i)
@@ -360,7 +360,7 @@ bool Board::ParseFileBoard( std::ifstream& file, std::vector<PlacedTileInfo>& pl
     while( numLine<MAX_GRID && getline( file, line, '\n' ))
     {
 
-        if( line.size() >= MAX_GRID )
+        if( line.size() == MAX_GRID )
         {
             for(int i=0;i<MAX_GRID;++i)
             {
@@ -375,10 +375,12 @@ bool Board::ParseFileBoard( std::ifstream& file, std::vector<PlacedTileInfo>& pl
                         placedTiles.push_back( PlacedTileInfo( numLine, i, static_cast<char>( line[i] + CASE_DIFF ) ) );
                 }
                 else
-                    throw std::invalid_argument( __FUNCTION__ "parse file char error" );
+                    throw std::invalid_argument( __FUNCTION__ " parse file char error" );
             }
             ++numLine;
         }
+        else
+            throw std::invalid_argument( __FUNCTION__ " parse line error" );
     }
 
     return numLine == MAX_GRID;

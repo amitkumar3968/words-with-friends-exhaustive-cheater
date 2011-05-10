@@ -8,8 +8,6 @@
 #include <string>
 #include <vector>
 
-typedef std::vector<ScoreRank::RankEntity>::const_iterator Result_it;
-
 class MoveOptimalizer
 {
 public:
@@ -19,18 +17,16 @@ public:
                      const std::string& inputBoardPath );
     virtual ~MoveOptimalizer( );
 
-    void OptimizeMove( std::vector<char>& tileToPlace );
+    void OptimizeMove( std::string& tileToPlace );
 
-    Result_it& result_begin( );
-    Result_it& result_end( );
+    void printResultToStream( std::ostream& stream );
 
 private:
     Board               m_iniBoard;
     ScoreRank           m_ranker;
     ExhaustiveVisitor   m_visitor;
     std::string         m_inputBoardPath;
-    Result_it           m_resultBegin;
-    Result_it           m_resultEnd;
+
 };
 
 

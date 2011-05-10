@@ -2,7 +2,7 @@
 
 #include "Board.h"
 
-
+#include <iostream>
 
 PositionArbitrator::PositionArbitrator( Board* board )
 : m_board                   ( board ),
@@ -24,6 +24,7 @@ void PositionArbitrator::Reset( )
 {
     bool validToPlace[Board::MAX_GRID][Board::MAX_GRID];
     m_board->GetMarkedNeighbour( validToPlace );
+    m_positionsFor1stPlaced.clear( );
 
     for(int i=0;i<Board::MAX_GRID;++i)
     {
