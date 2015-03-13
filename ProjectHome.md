@@ -1,0 +1,1 @@
+Exhaustive cheater for iphone game "Word with friends"
